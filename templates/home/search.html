@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} Search Results {% endblock title %}
+{% block body %} 
+<div class="container">
+    <h4 class="my-3 mx-3">Search Results for :{{query}}</h4>
+    {% if allpost|length < 1 %}
+    <div class="my-3 mx-3">
+    Your search -<b> {{query}} </b>- did not match any documents.
+
+     Suggestions:
+    <ul>
+      <li>  Make sure that all words are spelled correctly.</li>
+      <li>  Try different keywords.</li>
+      <li>  Try more general keywords.</li>
+    </ul>
+    </div>
+    {% else %}
+    {% for post in allpost  %}
+    
+    <div class="my-2">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+            <h3 class="mb-0">{{post.title}}</h3>
+            <div class="mb-1 text-body-secondary">{{post.timestamp}}</div>
+            <p class="card-text mb-auto">{{post.content | truncatechars:500}}</p>
+            <div>
+            <a href="/blog/{{post.slug}}" class="btn btn-primary">Continue reading</a>
+        </div>
+        </div>
+      </div>
+    {% endfor %}  
+    {% endif %}
+</div> 
+{% endblock body %}
